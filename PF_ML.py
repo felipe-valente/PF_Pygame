@@ -1,23 +1,16 @@
 import pygame
 import random
+from config import *
 
 
-WIDTH = 360
-HEIGHT = 480
-FPS = 100
 
-preto = (0,0,0)
-branco = (255,255,255)
-azul = (0,0,255)
-vermelho = (255,0,0)
-verde = (0,255,0)
 
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Ship lander")
 clock = pygame.time.Clock()
-
+all_sprites = pygame.sprite.Group()
 #Game loop
 rodando = True
 while rodando:
@@ -28,8 +21,12 @@ while rodando:
 		#fecha o jogo no "X"
 		if event.type == pygame.QUIT:
 			rodando = False
-
+	#atualiza tela para o sprite
+	all_sprites.update()
+	
 	screen.fill(preto)
+	all_sprites.draw(screen)
+
 	pygame.display.flip()
 
 pygame.quit()
