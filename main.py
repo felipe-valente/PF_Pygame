@@ -1,31 +1,34 @@
 import pygame as pg
 import random
 from config import *
+from Sprites import *
 
 
 class Game:
 	def __init__(self):
 		pg.init()
 		pg.mixer.init()
-		screen = pg.display.set_mode((WIDTH,HEIGHT))
+		self.screen = pg.display.set_mode((WIDTH,HEIGHT))
 		pg.display.set_caption("Ship lander")
-		clock = pg.time.Clock()
+		self.clock = pg.time.Clock()
 		self.rodando = True
-		
+
 
 	def new(self):
 		self.all_sprites = pg.sprite.Group()
+		self.player = Player()
+		self.all_sprites.add(self.player)
 		self.run()
-		
 
 
-	def roda(self):
+
+	def run(self):
 		self.jogando = True
 		while self.jogando:
 			self.clock.tick(FPS)
 			self.events()
 			self.update()
-			self.draw() 
+			self.draw()
 
 
 	def update(self):
@@ -42,11 +45,11 @@ class Game:
 
 	def draw(self):
 		self.screen.fill(preto)
-		self.all_sprites.draw(screen)
+		self.all_sprites.draw(self.screen)
 
 		pg.display.flip()
 
-		
+
 
 	def show_start_screen(self):
 		pass
@@ -59,7 +62,3 @@ while g.rodando:
 	g.show_go_screen
 
 pg.quit()
-
-
-
-

@@ -3,8 +3,6 @@ import random
 from config import *
 
 
-
-
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
