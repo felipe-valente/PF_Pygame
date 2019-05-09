@@ -1,10 +1,11 @@
 #opções do jogo
-WIDTH = 480
-HEIGHT = 600
+WIDTH = 650
+HEIGHT = 450
 FPS = 100
 
 #propriedades do player
 PLAYER_ACC = 0.5
+PLAYER_ACC_UP = 0.3
 PLAYER_FRICTION = -0.04
 
 #cores definidas
