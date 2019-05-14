@@ -12,17 +12,21 @@ class Player(pg.sprite.Sprite):
         self.pos = vec(WIDTH/2, HEIGHT/2)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
+        self.fuel = 10000
+
 
     def update(self):
         self.acc = vec(0, 0.1)
         keys = pg.key.get_pressed()
         if keys[pg.K_LEFT]:
             self.acc.x = -PLAYER_ACC
+            self.fuel -= 1
         if keys[pg.K_RIGHT]:
             self.acc.x = PLAYER_ACC
+            self.fuel -= 1
         if keys[pg.K_UP]:
             self.acc.y = -PLAYER_ACC_UP
-
+            self.fuel -= 1
         #aplica fricção
         self.acc.x += self.vel.x *PLAYER_FRICTION
 

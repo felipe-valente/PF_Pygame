@@ -12,6 +12,8 @@ class Game:
 		pg.display.set_caption("Ship lander")
 		self.clock = pg.time.Clock()
 		self.rodando = True
+		self.font_name = pg.font.match_font(FONT_NAME)
+
 
 
 	def new(self):
@@ -45,6 +47,7 @@ class Game:
 			self.player.pos.y = hits[0].rect.top
 			self.player.vel.y = 0
 
+
 	def events(self):
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
@@ -57,6 +60,7 @@ class Game:
 	def draw(self):
 		self.screen.fill(preto)
 		self.all_sprites.draw(self.screen)
+		self.draw_text(str(self.player.fuel), 22, branco, WIDTH/2 , 15)
 
 		pg.display.flip()
 
@@ -64,6 +68,14 @@ class Game:
 
 	def show_start_screen(self):
 		pass
+
+	def draw_text(self, text, size, color, x, y):
+		font = pg.font.Font(self.font_name, size)
+		text_surface = font.render(text, True, color)
+		text_rect = text_surface.get_rect()
+		text_rect.midtop = (x,y)
+		self.screen.blit(text_surface, text_rect)
+
 
 
 g = Game()
