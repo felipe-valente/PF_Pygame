@@ -2,6 +2,7 @@
 WIDTH = 650
 HEIGHT = 450
 FPS = 100
+TITLE = "MOON LANDER"
 FONT_NAME = "Coolvetica Rg"
 
 #propriedades do player
@@ -13,5 +14,8 @@ PLAYER_FRICTION = -0.04
 preto = (0,0,0)
 branco = (255,255,255)
 azul = (0,0,255)
+azulaleatorio = (0,200,255)
 vermelho = (255,0,0)
 verde = (0,255,0)
+azulclaro = (0, 155, 155)
+pfcolor = azulclaro
