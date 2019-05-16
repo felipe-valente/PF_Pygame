@@ -21,9 +21,6 @@ class Game:
 		self.platforms = pg.sprite.Group()
 		self.player = Player()
 		self.all_sprites.add(self.player)
-		p1 = Platform(0, HEIGHT-40, WIDTH, 40)
-		self.all_sprites.add(p1)
-		self.platforms.add(p1)
 		p2 = Platform(WIDTH/2 - 50, HEIGHT * 3/4, 100, 20)
 		self.all_sprites.add(p2)
 		self.platforms.add(p2)
@@ -46,8 +43,9 @@ class Game:
 		if hits:
 			self.player.pos.y = hits[0].rect.top
 			self.player.vel.y = 0
-			if self.Player.vel(1,4):
+			if hits[0].rect.top:
 				self.jogando = False
+				self.rodando = False
 
 	def events(self):
 		for event in pg.event.get():
@@ -55,6 +53,7 @@ class Game:
 				if self.jogando:
 					self.jogando = False
 			self.rodando = False
+
 
 		pass
 
@@ -78,7 +77,9 @@ class Game:
 
 	def show_go_screen(self):
 		self.screen.fill(preto)
-		self.draw_text("GAME OVER", 48, vermelho, WIDTH/2, HEIGHT/4)
+		self.draw_text("GAME OVER", 78, vermelho, WIDTH/2, HEIGHT/4)
+		self.draw_text("VOCÊ É GAY BRO!", 50, branco, WIDTH/2, HEIGHT/2)
+		self.draw_text("RAFA MOREIRA! GANG GANG GANG!! 777", 37, branco, WIDTH/2, HEIGHT*3/4)
 		pg.display.flip()
 		self.espera_por_tecla()
 
@@ -105,6 +106,6 @@ g = Game()
 g.show_start_screen()
 while g.rodando:
 	g.new()
-	g.show_go_screen()
 
+g.show_go_screen()
 pg.quit()
