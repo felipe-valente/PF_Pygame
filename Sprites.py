@@ -9,7 +9,7 @@ class Player(pg.sprite.Sprite):
         self.image.fill(azul)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/4, HEIGHT/4)
+        self.pos = vec(WIDTH/8, HEIGHT/4)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
         self.fuel = 10000
@@ -35,11 +35,7 @@ class Player(pg.sprite.Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.3*self.acc
         #parte que impede que a nave fuja da tela
-        if self.pos.x > WIDTH:
-            self.pos.x = 0
-        if self.pos.x < 0:
-            self.pos.x = WIDTH
-
+    
         self.rect.midbottom = self.pos
 
 class Platform(pg.sprite.Sprite):

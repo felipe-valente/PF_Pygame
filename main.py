@@ -21,9 +21,15 @@ class Game:
 		self.platforms = pg.sprite.Group()
 		self.player = Player()
 		self.all_sprites.add(self.player)
-		p2 = Platform(WIDTH/2 - 50, HEIGHT * 3/4, 100, 20)
+		p2 = Platform(WIDTH/4, 0, 20, HEIGHT * 3/4)
 		self.all_sprites.add(p2)
 		self.platforms.add(p2)
+		p3 = Platform(WIDTH/2, HEIGHT/4, 20, HEIGHT * 3/4)
+		self.all_sprites.add(p3)
+		self.platforms.add(p3)
+		p4 = Platform(WIDTH*3/4, 0, 20, HEIGHT * 3/4)
+		self.all_sprites.add(p4)
+		self.platforms.add(p4)
 		self.run()
 
 
@@ -43,9 +49,15 @@ class Game:
 		if hits:
 			self.player.pos.y = hits[0].rect.top
 			self.player.vel.y = 0
-			if hits[0].rect.top:
+			if hits[0].rect.top or hits[0].rect.left:
 				self.jogando = False
 				self.rodando = False
+		if self.player.pos.x + 30 > WIDTH or self.player.pos.x < 0:
+			self.jogando = False
+		if self.player.pos.y + 20 > HEIGHT or self.player.pos.y < 0:
+			self.jogando = False
+
+
 
 	def events(self):
 		for event in pg.event.get():
@@ -78,8 +90,7 @@ class Game:
 	def show_go_screen(self):
 		self.screen.fill(preto)
 		self.draw_text("GAME OVER", 78, vermelho, WIDTH/2, HEIGHT/4)
-		self.draw_text("VOCÊ É GAY BRO!", 50, branco, WIDTH/2, HEIGHT/2)
-		self.draw_text("RAFA MOREIRA! GANG GANG GANG!! 777", 37, branco, WIDTH/2, HEIGHT*3/4)
+		self.draw_text("LUPUM", 50, branco, WIDTH/2, HEIGHT/2)
 		pg.display.flip()
 		self.espera_por_tecla()
 
