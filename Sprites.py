@@ -12,7 +12,7 @@ class Player(pg.sprite.Sprite):
         self.pos = vec(WIDTH/8, HEIGHT/4)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
-        self.fuel = 50
+        self.fuel = 1000
 
 
     def update(self):
@@ -57,3 +57,4 @@ class PowerUp(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.item = 0

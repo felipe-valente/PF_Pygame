@@ -13,10 +13,6 @@ class Game:
 		self.clock = pg.time.Clock()
 		self.rodando = True
 		self.font_name = pg.font.match_font(FONT_NAME)
-
-
-
-	def new(self):
 		self.all_sprites = pg.sprite.Group()
 		self.platforms = pg.sprite.Group()
 		self.power_up = pg.sprite.Group( )
@@ -31,10 +27,15 @@ class Game:
 		p4 = Platform(WIDTH*3/4, 0, 20, HEIGHT * 3/4)
 		self.all_sprites.add(p4)
 		self.platforms.add(p4)
-		PU1 = PowerUp(WIDTH/8, HEIGHT/4)
-		self.all_sprites.add(PU1)
-		self.power_up.add(PU1)
-		self.run()
+		self.PU1 = PowerUp(WIDTH/8, HEIGHT/8)
+		self.all_sprites.add(self.PU1)
+		self.power_up.add(self.PU1)
+		self.PU2 = PowerUp(WIDTH/4, HEIGHT*7/8)
+		self.all_sprites.add(self.PU2)
+		self.power_up.add(self.PU2)
+		self.PU3 = PowerUp(WIDTH/2, HEIGHT/8)
+		self.all_sprites.add(self.PU3)
+		self.power_up.add(self.PU3)
 
 
 
@@ -50,6 +51,7 @@ class Game:
 	def update(self):
 		self.all_sprites.update()
 		hits = pg.sprite.spritecollide(self.player, self.platforms, False)
+		hits_item = pg.sprite.spritecollide(self.player, self.power_up, True)
 		if hits:
 			self.player.pos.y = hits[0].rect.top
 			self.player.vel.y = 0
@@ -61,7 +63,14 @@ class Game:
 		if self.player.pos.y + 20 > HEIGHT or self.player.pos.y < 0:
 			self.jogando = False
 
+		if hits_item:
+			if hits_item[0].rect:
+				self.PU1.item +=1
 
+			if self.PU1.item == 3:
+				pouso = Platform(7*WIDTH/8, HEIGHT-40, 50,20)
+				self.all_sprites.add(pouso)
+				self.platforms.add(pouso)
 
 	def events(self):
 		for event in pg.event.get():
@@ -119,8 +128,7 @@ class Game:
 
 g = Game()
 g.show_start_screen()
-while g.rodando:
-	g.new()
+g.run()
 
 g.show_go_screen()
 pg.quit()
