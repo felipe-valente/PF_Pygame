@@ -12,22 +12,23 @@ class Player(pg.sprite.Sprite):
         self.pos = vec(WIDTH/8, HEIGHT/4)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
-        self.fuel = 10000
+        self.fuel = 50
 
 
     def update(self):
-        self.acc = vec(0, 0.1)
+        self.acc = vec(0, 0.05)
         keys = pg.key.get_pressed()
-        if keys[pg.K_LEFT]:
-            self.acc.x = -PLAYER_ACC
-            self.fuel -= 1
-        if keys[pg.K_RIGHT]:
-            self.acc.x = PLAYER_ACC
-            self.fuel -= 1
-        if keys[pg.K_UP]:
-            self.acc.y = -PLAYER_ACC_UP
-            self.fuel -= 1
-        #aplica fricção
+        if self.fuel > 0:
+            if keys[pg.K_LEFT]:
+                self.acc.x = -PLAYER_ACC
+                self.fuel -= 1
+            if keys[pg.K_RIGHT]:
+                self.acc.x = PLAYER_ACC
+                self.fuel -= 1
+            if keys[pg.K_UP]:
+                self.acc.y = -PLAYER_ACC_UP
+                self.fuel -= 1
+            #aplica fricção
         self.acc.x += self.vel.x *PLAYER_FRICTION
 
 
@@ -35,7 +36,7 @@ class Player(pg.sprite.Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.3*self.acc
         #parte que impede que a nave fuja da tela
-    
+
         self.rect.midbottom = self.pos
 
 class Platform(pg.sprite.Sprite):
@@ -43,6 +44,16 @@ class Platform(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self)
         self.image = pg.Surface((w, h))
         self.image.fill(verde)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+class PowerUp(pg.sprite.Sprite):
+    def __init__(self,x,y):
+        pg.sprite.Sprite.__init__(self)
+        self.image = pg.Surface((20, 20))
+        self.image.fill(branco)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

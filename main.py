@@ -19,6 +19,7 @@ class Game:
 	def new(self):
 		self.all_sprites = pg.sprite.Group()
 		self.platforms = pg.sprite.Group()
+		self.power_up = pg.sprite.Group( )
 		self.player = Player()
 		self.all_sprites.add(self.player)
 		p2 = Platform(WIDTH/4, 0, 20, HEIGHT * 3/4)
@@ -30,6 +31,9 @@ class Game:
 		p4 = Platform(WIDTH*3/4, 0, 20, HEIGHT * 3/4)
 		self.all_sprites.add(p4)
 		self.platforms.add(p4)
+		PU1 = PowerUp(WIDTH/8, HEIGHT/4)
+		self.all_sprites.add(PU1)
+		self.power_up.add(PU1)
 		self.run()
 
 
