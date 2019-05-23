@@ -74,12 +74,13 @@ class Game:
 				self.platforms.add(pouso)
 
 		if hits_platform:
-			if hits_platform[0].rect:
+			if hits_platform[0].rect.top:
 				if self.player.vel.y >= 5.2:
 					self.jogando = False
 				else:
 					self.player.pos.y = hits_platform[0].rect.top
-					self.player.vel.y = 0
+					g.tela_vitoria()
+
 
 	def events(self):
 		for event in pg.event.get():
@@ -116,6 +117,21 @@ class Game:
 		self.draw_text("LUPUM", 50, branco, WIDTH/2, HEIGHT/2)
 		pg.display.flip()
 		self.espera_por_tecla()
+
+	def tela_vitoria(self):
+		self.screen.fill(amarelo)
+		self.draw_text("Parabéns! Você Ganhou!", 78, vermelho, WIDTH/2, HEIGHT/4)
+		self.draw_text("Você conseguiu pousar a nave com sucesso!", 50, preto, WIDTH/2, HEIGHT/2)
+		pg.display.flip()
+		esperando = True
+		while esperando:
+			self.clock.tick(FPS)
+			for event in pg.event.get():
+				if event.type == pg.QUIT:
+					esperando = False
+					self.running = False
+				if event.type == pg.KEYUP:
+					esperando = False
 
 	def espera_por_tecla(self):
 		esperando = True
