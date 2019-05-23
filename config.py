@@ -1,6 +1,6 @@
 #opções do jogo
-WIDTH = 1500
-HEIGHT = 780
+WIDTH = 800
+HEIGHT = 600
 FPS = 100
 TITLE = "MOON LANDER"
 FONT_NAME = "Coolvetica Rg"

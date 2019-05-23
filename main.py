@@ -61,7 +61,7 @@ class Game:
 				self.jogando = False
 		if self.player.pos.x + 30 > WIDTH or self.player.pos.x < 0:
 			self.jogando = False
-		if self.player.pos.y + 20 > HEIGHT or self.player.pos.y < 0:
+		if self.player.pos.y > HEIGHT or self.player.pos.y < 0:
 			self.jogando = False
 
 		if hits_item:
@@ -69,21 +69,24 @@ class Game:
 				self.PU1.item +=1
 
 			if self.PU1.item == 3:
-				pouso = Platform(7*WIDTH/8, HEIGHT-40, 50,20)
+				pouso = Platform(7*WIDTH/8, HEIGHT-150, 50,20)
 				self.all_sprites.add(pouso)
 				self.platforms.add(pouso)
 
 		if hits_platform:
-			if self.player.vel >= -1:
-				self.jogando = False
-
+			if hits_platform[0].rect:
+				if self.player.vel.y >= 5.2:
+					self.jogando = False
+				else:
+					self.player.pos.y = hits_platform[0].rect.top
+					self.player.vel.y = 0
 
 	def events(self):
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				if self.jogando:
 					self.jogando = False
-			self.rodando = False
+				self.rodando = False
 
 
 		pass
@@ -92,6 +95,7 @@ class Game:
 		self.screen.fill(pfcolor)
 		self.all_sprites.draw(self.screen)
 		self.draw_text(str(self.player.fuel), 22, branco, WIDTH/2 , 15)
+		self.draw_text(str(self.player.vel),22, branco, 2/3* WIDTH, 15)
 
 		pg.display.flip()
 
