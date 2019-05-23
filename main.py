@@ -14,19 +14,20 @@ class Game:
 		self.rodando = True
 		self.font_name = pg.font.match_font(FONT_NAME)
 		self.all_sprites = pg.sprite.Group()
-		self.platforms = pg.sprite.Group()
+		self.boundaries = pg.sprite.Group()
 		self.power_up = pg.sprite.Group( )
+		self.platforms = pg.sprite.Group()
 		self.player = Player()
 		self.all_sprites.add(self.player)
-		p2 = Platform(WIDTH/4, 0, 20, HEIGHT * 3/4)
-		self.all_sprites.add(p2)
-		self.platforms.add(p2)
-		p3 = Platform(WIDTH/2, HEIGHT/4, 20, HEIGHT * 3/4)
-		self.all_sprites.add(p3)
-		self.platforms.add(p3)
-		p4 = Platform(WIDTH*3/4, 0, 20, HEIGHT * 3/4)
-		self.all_sprites.add(p4)
-		self.platforms.add(p4)
+		b1 = Boundaries(WIDTH/4, 0, 20, HEIGHT * 3/4)
+		self.all_sprites.add(b1)
+		self.boundaries.add(b1)
+		b2 = Boundaries(WIDTH/2, HEIGHT/4, 20, HEIGHT * 3/4)
+		self.all_sprites.add(b2)
+		self.boundaries.add(b2)
+		b3 = Boundaries(WIDTH*3/4, 0, 20, HEIGHT * 3/4)
+		self.all_sprites.add(b3)
+		self.boundaries.add(b3)
 		self.PU1 = PowerUp(WIDTH/8, HEIGHT/8)
 		self.all_sprites.add(self.PU1)
 		self.power_up.add(self.PU1)
@@ -50,14 +51,14 @@ class Game:
 
 	def update(self):
 		self.all_sprites.update()
-		hits = pg.sprite.spritecollide(self.player, self.platforms, False)
+		hits = pg.sprite.spritecollide(self.player, self.boundaries, False)
 		hits_item = pg.sprite.spritecollide(self.player, self.power_up, True)
+		hits_platform = pg.sprite.spritecollide(self.player, self.platforms, False)
 		if hits:
 			self.player.pos.y = hits[0].rect.top
 			self.player.vel.y = 0
 			if hits[0].rect.top or hits[0].rect.left:
 				self.jogando = False
-				self.rodando = False
 		if self.player.pos.x + 30 > WIDTH or self.player.pos.x < 0:
 			self.jogando = False
 		if self.player.pos.y + 20 > HEIGHT or self.player.pos.y < 0:
@@ -71,6 +72,11 @@ class Game:
 				pouso = Platform(7*WIDTH/8, HEIGHT-40, 50,20)
 				self.all_sprites.add(pouso)
 				self.platforms.add(pouso)
+
+		if hits_platform:
+			if self.player.vel >= -1:
+				self.jogando = False
+
 
 	def events(self):
 		for event in pg.event.get():

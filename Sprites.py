@@ -39,11 +39,20 @@ class Player(pg.sprite.Sprite):
 
         self.rect.midbottom = self.pos
 
-class Platform(pg.sprite.Sprite):
+class Boundaries(pg.sprite.Sprite):
     def __init__(self,x,y,w,h):
         pg.sprite.Sprite.__init__(self)
         self.image = pg.Surface((w, h))
         self.image.fill(verde)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+class Platform(pg.sprite.Sprite):
+    def __init__(self,x,y,w,h):
+        pg.sprite.Sprite.__init__(self)
+        self.image = pg.Surface((w, h))
+        self.image.fill(vermelho)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
