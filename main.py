@@ -13,6 +13,8 @@ class Game:
 		self.clock = pg.time.Clock()
 		self.rodando = True
 		self.font_name = pg.font.match_font(FONT_NAME)
+		self.pouso = False
+	def new(self):
 		self.all_sprites = pg.sprite.Group()
 		self.boundaries = pg.sprite.Group()
 		self.power_up = pg.sprite.Group( )
@@ -37,7 +39,7 @@ class Game:
 		self.PU3 = PowerUp(WIDTH/2, HEIGHT/8)
 		self.all_sprites.add(self.PU3)
 		self.power_up.add(self.PU3)
-
+		self.run()
 
 
 	def run(self):
@@ -75,11 +77,12 @@ class Game:
 
 		if hits_platform:
 			if hits_platform[0].rect.top:
-				if self.player.vel.y >= 5.2:
+				if self.player.vel.y >= 5:
 					self.jogando = False
 				else:
 					self.player.pos.y = hits_platform[0].rect.top
-					g.tela_vitoria()
+					self.pouso = True
+
 
 
 	def events(self):
@@ -89,8 +92,6 @@ class Game:
 					self.jogando = False
 				self.rodando = False
 
-
-		pass
 
 	def draw(self):
 		self.screen.fill(pfcolor)
@@ -112,9 +113,11 @@ class Game:
 
 
 	def show_go_screen(self):
+		if not self.rodando:
+			return
 		self.screen.fill(preto)
 		self.draw_text("GAME OVER", 78, vermelho, WIDTH/2, HEIGHT/4)
-		self.draw_text("LUPUM", 50, branco, WIDTH/2, HEIGHT/2)
+		self.draw_text("Score:"+ str(self.player.fuel), 50, verde, WIDTH/2, HEIGHT/2)
 		pg.display.flip()
 		self.espera_por_tecla()
 
@@ -129,8 +132,9 @@ class Game:
 			for event in pg.event.get():
 				if event.type == pg.QUIT:
 					esperando = False
-					self.running = False
+					self.rodando = False
 				if event.type == pg.KEYUP:
+					self.rodando = False
 					esperando = False
 
 	def espera_por_tecla(self):
@@ -140,7 +144,7 @@ class Game:
 			for event in pg.event.get():
 				if event.type == pg.QUIT:
 					esperando = False
-					self.running = False
+					self.rodando = False
 				if event.type == pg.KEYUP:
 					esperando = False
 
@@ -154,7 +158,11 @@ class Game:
 
 g = Game()
 g.show_start_screen()
-g.run()
+while g.rodando:
+	g.new()
+	if g.pouso == True:
+		g.tela_vitoria()
+	else:
+		g.show_go_screen()
 
-g.show_go_screen()
 pg.quit()

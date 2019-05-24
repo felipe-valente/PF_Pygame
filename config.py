@@ -3,7 +3,7 @@ WIDTH = 800
 HEIGHT = 600
 FPS = 100
 TITLE = "MOON LANDER"
-FONT_NAME = "Coolvetica Rg"
+FONT_NAME = "Arial"
 
 #propriedades do player
 PLAYER_ACC = 0.2
