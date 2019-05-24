@@ -80,9 +80,10 @@ class Game:
 				if self.player.vel.y >= 5:
 					self.jogando = False
 				else:
-					self.player.pos.y = hits_platform[0].rect.top
-					self.pouso = True
-
+					if self.player.pos.y - hits_platform[0].rect.top<=5:
+						self.pouso = True
+					else:
+						self.jogando = False
 
 
 	def events(self):
