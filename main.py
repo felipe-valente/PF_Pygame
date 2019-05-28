@@ -8,6 +8,8 @@ class Game:
 	def __init__(self):
 		pg.init()
 		pg.mixer.init()
+		pg.mixer.music.load("10 Arpanauts.mp3")
+		pg.mixer.music.play(-1)
 		self.screen = pg.display.set_mode((WIDTH,HEIGHT))
 		pg.display.set_caption("Ship lander")
 		self.clock = pg.time.Clock()

@@ -1,12 +1,15 @@
 import pygame as pg
 from config import *
+import os
 vec = pg.math.Vector2
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder, "img")
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.Surface((30,40))
-        self.image.fill(azul)
+        self.image = pg.image.load(os.path.join(img_folder, "Imagem3.png"))
+        self.image.set_colorkey(preto)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/8, HEIGHT/4)
