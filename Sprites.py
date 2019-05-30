@@ -8,7 +8,7 @@ img_folder = os.path.join(game_folder, "img")
 class Player(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.image.load(os.path.join(img_folder, "Imagem1.1.png"))
+        self.image = pg.image.load(os.path.join(img_folder, "Imagem1.1.png")).convert()
         self.image.set_colorkey(preto)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
@@ -45,8 +45,9 @@ class Player(pg.sprite.Sprite):
 class Boundaries(pg.sprite.Sprite):
     def __init__(self,x,y,w,h):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.Surface((w, h))
-        self.image.fill(verde)
+        wall = pg.image.load(os.path.join(img_folder, "stoneWall.png")).convert()
+        self.image = pg.transform.scale(wall,(round(w),round(h)))
+        self.image.set_colorkey(preto)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

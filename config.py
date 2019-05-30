@@ -5,6 +5,10 @@ FPS = 100
 TITLE = "MOON LANDER"
 FONT_NAME = "Arial"
 
+#background = pg.image.load(os.path.join(img_folder, "space.png")).convert()
+#background_rect = background.get_rect()
+#self.screen.blit(background, background_rect)
+
 #propriedades do player
 PLAYER_ACC = 0.2
 PLAYER_ACC_UP = 0.2

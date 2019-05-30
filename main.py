@@ -17,6 +17,7 @@ class Game:
 		self.font_name = pg.font.match_font(FONT_NAME)
 		self.pouso = False
 
+
 	def new(self):
 		self.all_sprites = pg.sprite.Group()
 		self.boundaries = pg.sprite.Group()
@@ -103,10 +104,7 @@ class Game:
 		self.all_sprites.draw(self.screen)
 		self.draw_text(str(self.player.fuel), 22, branco, WIDTH/2 , 15)
 		self.draw_text(str(self.player.vel),22, branco, 2/3* WIDTH, 15)
-
 		pg.display.flip()
-
-
 
 	def show_start_screen(self):
 		self.screen.fill(pfcolor)
