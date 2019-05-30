@@ -8,14 +8,14 @@ img_folder = os.path.join(game_folder, "img")
 class Player(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.image.load(os.path.join(img_folder, "Imagem3.png"))
+        self.image = pg.image.load(os.path.join(img_folder, "Imagem1.1.png"))
         self.image.set_colorkey(preto)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/8, HEIGHT/4)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
-        self.fuel = 1000
+        self.fuel = 500
 
 
     def update(self):

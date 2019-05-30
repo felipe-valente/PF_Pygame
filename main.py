@@ -8,7 +8,7 @@ class Game:
 	def __init__(self):
 		pg.init()
 		pg.mixer.init()
-		pg.mixer.music.load("10 Arpanauts.mp3")
+		pg.mixer.music.load("Mask_Off_8bit_bg.mp3")
 		pg.mixer.music.play(-1)
 		self.screen = pg.display.set_mode((WIDTH,HEIGHT))
 		pg.display.set_caption("Ship lander")
@@ -16,6 +16,7 @@ class Game:
 		self.rodando = True
 		self.font_name = pg.font.match_font(FONT_NAME)
 		self.pouso = False
+
 	def new(self):
 		self.all_sprites = pg.sprite.Group()
 		self.boundaries = pg.sprite.Group()
@@ -71,6 +72,7 @@ class Game:
 		if hits_item:
 			if hits_item[0].rect:
 				self.PU1.item +=1
+				pg.mixer.Sound.play(pg.mixer.Sound("coin1.wav"))
 
 			if self.PU1.item == 3:
 				pouso = Platform(7*WIDTH/8, HEIGHT-150, 50,20)
@@ -79,7 +81,7 @@ class Game:
 
 		if hits_platform:
 			if hits_platform[0].rect.top:
-				if self.player.vel.y >= 5:
+				if self.player.vel.y >= 3:
 					self.jogando = False
 				else:
 					if self.player.pos.y - hits_platform[0].rect.top<=5:
@@ -126,7 +128,7 @@ class Game:
 
 	def tela_vitoria(self):
 		self.screen.fill(amarelo)
-		self.draw_text("Parabéns! Você Ganhou!", 78, vermelho, WIDTH/2, HEIGHT/4)
+		self.draw_text("Parabéns!", 78, vermelho, WIDTH/2, HEIGHT/4)
 		self.draw_text("Você conseguiu pousar a nave com sucesso!", 50, preto, WIDTH/2, HEIGHT/2)
 		pg.display.flip()
 		esperando = True
