@@ -25,12 +25,21 @@ class Player(pg.sprite.Sprite):
             if keys[pg.K_LEFT]:
                 self.acc.x = -PLAYER_ACC
                 self.fuel -= 1
+                self.image = pg.image.load(os.path.join(img_folder, "left.png")).convert()
+                self.image.set_colorkey(preto)
+                self.rect = self.image.get_rect()
             if keys[pg.K_RIGHT]:
                 self.acc.x = PLAYER_ACC
                 self.fuel -= 1
+                self.image = pg.image.load(os.path.join(img_folder, "right.png")).convert()
+                self.image.set_colorkey(preto)
+                self.rect = self.image.get_rect()
             if keys[pg.K_UP]:
                 self.acc.y = -PLAYER_ACC_UP
                 self.fuel -= 1
+                self.image = pg.image.load(os.path.join(img_folder, "up.png")).convert()
+                self.image.set_colorkey(preto)
+                self.rect = self.image.get_rect()
             #aplica fricção
         self.acc.x += self.vel.x *PLAYER_FRICTION
 
@@ -65,8 +74,9 @@ class Platform(pg.sprite.Sprite):
 class PowerUp(pg.sprite.Sprite):
     def __init__(self,x,y):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.Surface((20, 20))
-        self.image.fill(branco)
+        self.image = pg.image.load(os.path.join(img_folder, "coin.png")).convert()
+        self.image.set_colorkey(preto)
+        self.rect = self.image.get_rect()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
