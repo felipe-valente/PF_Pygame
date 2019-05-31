@@ -15,7 +15,7 @@ class Player(pg.sprite.Sprite):
         self.pos = vec(WIDTH/8, HEIGHT/4)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
-        self.fuel = 500
+        self.fuel = 1000
 
 
     def update(self):

@@ -23,4 +23,5 @@ amarelo = (255,255,0)
 vermelho = (255,0,0)
 verde = (0,255,0)
 azulclaro = (0, 155, 155)
+spacial = (45, 83, 145)
 pfcolor = azulclaro

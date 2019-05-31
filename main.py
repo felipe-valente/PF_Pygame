@@ -45,6 +45,33 @@ class Game:
 		self.power_up.add(self.PU3)
 		self.run()
 
+	def new_2(self):
+		self.all_sprites = pg.sprite.Group()
+		self.boundaries = pg.sprite.Group()
+		self.power_up = pg.sprite.Group( )
+		self.platforms = pg.sprite.Group()
+		self.player = Player()
+		self.all_sprites.add(self.player)
+		b4 = Boundaries(0, HEIGHT*3/10, WIDTH * 3/4, 20)
+		self.all_sprites.add(b4)
+		self.boundaries.add(b4)
+		b5 = Boundaries(WIDTH/4, 350, WIDTH * 3/4, 20)
+		self.all_sprites.add(b5)
+		self.boundaries.add(b5)
+		b6 = Boundaries(0, HEIGHT*3/4, WIDTH * 3/4, 20)
+		self.all_sprites.add(b6)
+		self.boundaries.add(b6)
+		self.PU1 = PowerUp(WIDTH/8, HEIGHT/8)
+		self.all_sprites.add(self.PU1)
+		self.power_up.add(self.PU1)
+		self.PU2 = PowerUp(WIDTH/4, HEIGHT*7/8)
+		self.all_sprites.add(self.PU2)
+		self.power_up.add(self.PU2)
+		self.PU3 = PowerUp(WIDTH/2, HEIGHT/8)
+		self.all_sprites.add(self.PU3)
+		self.power_up.add(self.PU3)
+		self.run()
+
 
 	def run(self):
 		self.jogando = True
@@ -100,10 +127,10 @@ class Game:
 
 
 	def draw(self):
-		self.screen.fill(pfcolor)
+		self.screen.fill(spacial)
 		self.all_sprites.draw(self.screen)
 		self.draw_text(str(self.player.fuel), 22, branco, WIDTH/2 , 15)
-		self.draw_text(str(self.player.vel),22, branco, 2/3* WIDTH, 15)
+		self.draw_text("[{0:.02f}, {1:.02f}]".format(self.player.vel[0], self.player.vel[1]),22, branco, 2/3* WIDTH, 15)
 		pg.display.flip()
 
 	def show_start_screen(self):
@@ -127,7 +154,7 @@ class Game:
 	def tela_vitoria(self):
 		self.screen.fill(amarelo)
 		self.draw_text("Parabéns!", 78, vermelho, WIDTH/2, HEIGHT/4)
-		self.draw_text("Você conseguiu pousar a nave com sucesso!", 50, preto, WIDTH/2, HEIGHT/2)
+		self.draw_text("Você conseguiu pousar a nave com sucesso!", 44, preto, WIDTH/2, HEIGHT/2)
 		pg.display.flip()
 		esperando = True
 		while esperando:
@@ -137,7 +164,6 @@ class Game:
 					esperando = False
 					self.rodando = False
 				if event.type == pg.KEYUP:
-					self.rodando = False
 					esperando = False
 
 	def espera_por_tecla(self):
@@ -161,11 +187,20 @@ class Game:
 
 g = Game()
 g.show_start_screen()
+fase = 1
 while g.rodando:
-	g.new()
+	if fase == 1:
+	    g.new()
+	elif fase == 2:
+		g.new_2()
 	if g.pouso == True:
 		g.tela_vitoria()
+		g.pouso = False
+		fase +=1
 	else:
 		g.show_go_screen()
+
+	if fase > 2:
+		g.rodando = False
 
 pg.quit()
